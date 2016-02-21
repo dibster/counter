@@ -1,0 +1,16 @@
+{
+  "name": "mocha_express_cassandra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cassandra-driver": "^3.0.1",
+    "express": "^4.13.4",
+    "mocha": "^2.4.5"
+  }
+}
