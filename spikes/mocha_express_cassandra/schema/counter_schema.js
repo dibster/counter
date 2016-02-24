@@ -30,17 +30,18 @@ function dropAll() {
 function createTables() {
 
   query = `CREATE TABLE Topics(
-             id int PRIMARY KEY,
+             id int,
              subject text,
              topic text,
              subject_url text,
-             topic_url text)`;
+             topic_url text,
+             PRIMARY KEY (subject,topic))`;
 
   client.execute(query,[],function (err,result) {
     if (err) {
       console.error('Error in Create Table ', err.message);
     } else {
-      console.log('Created Table', result);
+      console.log('Created Table');
       populateTableTopics();
     }
   });
@@ -49,27 +50,43 @@ function createTables() {
 
 function populateTableTopics() {
 
-  const topic = {
-    id : 1,
-    subject : 'life style',
-    topic : 'pub'
-  }
+  const topics = [
+    {
+      id : 1,
+      subject : 'life style',
+      topic : 'pub'
+    },
+    {
+      id : 2,
+      subject : 'life style',
+      topic : 'ruby'
+    },
+    {
+      id : 3,
+      subject : 'life style',
+      topic : 'flat white'
+    }
+  ]
 
   query = `INSERT INTO Topics(
              id,
              subject,
              topic) VALUES (?,?,?)`;
+topics.map(topic => {
 
-client.execute(query,[1,topic.subject,topic.topic], { prepare: true },function (err,result) {
-  if (err) {
-    console.error('Error Adding Data ', err.message);
-  } else {
-     console.log('Added Data ', result);
-     client.shutdown();
-     return;
-  }
+  client.execute(query,[1,topic.subject,topic.topic], { prepare: true },function (err,result) {
+    if (err) {
+      console.error('Error Adding Data ', err.message);
+    } else {
+       console.log('Added Data ');
+       client.shutdown();
+       return;
+    }
+
+  });
 
 });
+
 
 
 }
