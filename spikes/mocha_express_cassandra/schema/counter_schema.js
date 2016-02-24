@@ -1,5 +1,3 @@
-
-
 'use strict'
 
 const DB_IP_ADDRESS = '192.168.99.100';
@@ -9,42 +7,87 @@ let query = '';
 const cassandra = require('cassandra-driver'),
       client = new cassandra.Client( { contactPoints : [ DB_IP_ADDRESS ], keyspace : KEYSPACE } );
 
+const tables = ['Topics', 'Users'];
+
 dropAll();
 
 function dropAll() {
+  const numberoftables = tables.length;
+  let iterator = 0;
 
-  query = 'DROP TABLE Topics';
+  tables.map(table => {
 
-  client.execute(query,[],function (err,result) {
-    if (err) {
-      console.error('Error in Drop Table ', err.message);
-      createTables();
-    } else {
-      console.log('Dropped Tables');
-      createTables();
-    }
-  });
+    query = 'DROP TABLE ' + table;
+    client.execute(query,[],function (err,result) {
+      iterator++;
+      if (err) {
+        console.error('Error in Drop Table ', err.message);
+      } else {
+        console.log('Dropped Tables');
+      }
+      if (iterator === numberoftables) {
+        createTables();
+      }
+    });
+
+  })
+
+
 
 }
 
 function createTables() {
 
-  query = `CREATE TABLE Topics(
+  let createTablesArray = [];
+
+  let tableDDL = `CREATE TABLE Topics(
              id int,
              subject text,
              topic text,
              subject_url text,
              topic_url text,
+             measure text,
              PRIMARY KEY (subject,topic))`;
 
-  client.execute(query,[],function (err,result) {
-    if (err) {
-      console.error('Error in Create Table ', err.message);
-    } else {
-      console.log('Created Table');
-      populateTableTopics();
-    }
+  createTablesArray.push(tableDDL);
+
+  tableDDL = `CREATE TABLE Users(
+             id int,
+             email text,
+             lastUsed int,
+             lastLatitide int,
+             lastLongitude int,
+             PRIMARY KEY (id,email))`;
+
+  createTablesArray.push(tableDDL);
+
+  tableDDL = `CREATE TABLE UserPreferences(
+               userid int,
+               topicid int,
+               timeused int,
+               latused int,
+               lonused int,
+               PRIMARY KEY (userid,topicid))`;
+
+  createTablesArray.push(tableDDL);
+  const numberoftables = createTablesArray.length;
+  let iterator = 0;
+
+  createTablesArray.map(table => {
+    client.execute(table,[],function (err,result) {
+      iterator++;
+      if (err) {
+        console.error('Error in Create Table ', err.message);
+      } else {
+        console.log('Created Table');
+      }
+      if (iterator === numberoftables) {
+        populateTableTopics();
+      }
+    });
+
   });
+
 
 }
 
@@ -54,7 +97,9 @@ function populateTableTopics() {
     {
       id : 1,
       subject : 'life style',
-      topic : 'pub'
+      topic : 'pub',
+      measure : 'number'
+
     },
     {
       id : 2,
@@ -65,30 +110,56 @@ function populateTableTopics() {
       id : 3,
       subject : 'life style',
       topic : 'flat white'
+    },
+    {
+      id : 4,
+      subject : 'exercise',
+      topic : 'gym'
+    },
+    {
+      id : 5,
+      subject : 'exercise',
+      topic : 'planks'
+    },
+    {
+      id : 6,
+      subject : 'exercise',
+      topic : 'runs'
     }
   ]
+  const numberoftopics = topics.length;
+  let iterator = 0;
+
 
   query = `INSERT INTO Topics(
-             id,
-             subject,
-             topic) VALUES (?,?,?)`;
-topics.map(topic => {
+               id,
+               subject,
+               topic,
+               measure) VALUES (?,?,?,?)`;
 
-  client.execute(query,[1,topic.subject,topic.topic], { prepare: true },function (err,result) {
-    if (err) {
-      console.error('Error Adding Data ', err.message);
-    } else {
-       console.log('Added Data ');
-       client.shutdown();
-       return;
-    }
+  topics.map(topic => {
+
+    client.execute(query,[topic.id,topic.subject,topic.topic,topic.measure], { prepare: true },function (err,result) {
+      if (err) {
+        console.error('Error Adding Data ', err.message);
+      } else {
+         console.log('Added Data ');
+         iterator++;
+         if (iterator === numberoftopics) {
+           closeConnection();
+         }
+         return;
+      }
+    });
 
   });
 
-});
 
+}
 
-
+function closeConnection() {
+  console.log('Finished...');
+  client.shutdown();
 }
 
 // client.on('log', function(level, className, message, furtherInfo) {
