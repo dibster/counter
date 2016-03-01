@@ -1,3 +1,5 @@
+// format responses from Cassandra
+
 'use strict';
 
 const response = {}
@@ -26,7 +28,9 @@ function found(result) {
 function error(err) {
   let errResponse = response;
   errResponse.responseCode = 400;
-  newResponse.messages.push(err.message);
+  errResponse.messages.push(err.message);
+
+  return errResponse
 }
 
 module.exports={found,

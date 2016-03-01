@@ -16,13 +16,9 @@ function getUser(id) {
 
         dbClient.execute(query,[id], { prepare: true },function (err,result) {
           if (!err) {
-             resolve(formatResponse.found(result))
+             resolve(formatResponse.found(result));
           } else {
-            console.error('Error Selecting Data', err.message);
-            resp.data = {};
-            resp.return_code = 400;
-            resp.message = err.message;
-            reject(resp);
+            reject(formatResponse.error(err));
           }
         });
   })
