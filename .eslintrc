@@ -1,7 +1,7 @@
 {
   "env": {
     "es6": true,
-    "browser": true,
+    "browser": false,
     "node": true
   },
   "rules": {
@@ -25,7 +25,5 @@
     "strict": 0
   },
 
-  "ecmaFeatures": {
-    "jsx": true
-  }
+  "ecmaFeatures": {}
 }
