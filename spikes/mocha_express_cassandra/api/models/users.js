@@ -38,15 +38,5 @@ function addUser(user) {
 }
 
 
-module.exports={getUser,
-                addUser};
-
-// exports=addUser;
-// module.exorts=addUser;
-// module.exports=deleteUser;
-
-// create a user
-
-// Update a user
-
-// Delete a User
+module.exports={ getUser,
+                 addUser };
