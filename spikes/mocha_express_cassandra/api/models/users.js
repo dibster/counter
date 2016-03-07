@@ -14,6 +14,8 @@ function getUser(id) {
         WHERE id = ?
         `;
 
+        console.log('get id', id);
+
         dbClient.execute(query,[id], { prepare: true },function (err,result) {
           if (!err) {
              resolve(formatResponse.found(result));
