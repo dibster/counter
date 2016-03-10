@@ -14,8 +14,6 @@ function getUser(id) {
         WHERE id = ?
         `;
 
-        console.log('get id', id);
-
         dbClient.execute(query,[id], { prepare: true },function (err,result) {
           if (!err) {
              resolve(formatResponse.found(result));
@@ -29,14 +27,20 @@ function getUser(id) {
 function addUser(user) {
   return new Promise (
     function (resolve, reject) {
-      if (user === 'dave') {
-        resolve('Dave Added')
-      } else {
-        reject('user not added')
-      }
-    }
-  )
+      console.log('user', user);
+      const query = `
+        INSERT INTO Users JSON ?` ;
+      dbClient.execute(query,[JSON.stringify(user)], function (err,result) {
+        if (!err) {
+           console.log('Ok');
+           resolve(formatResponse.found(result));
+        } else {
+          console.log('error', err);
+         reject(formatResponse.error(err));
+        }
 
+      });
+  })
 }
 
 

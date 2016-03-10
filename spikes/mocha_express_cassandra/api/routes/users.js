@@ -8,14 +8,24 @@ router.get('/:id', function(req, res) {
 
   User.getUser(req.params.id)
     .then(resp => {
-      console.log('ok', resp);
-      res.send(resp);
+      res.status(resp.status).json(resp);
     })
     .catch(err => {
-      console.log('Error', resp);
-      res.send(resp);
+      res.status(err.status).json(err);
     });
 
-})
+});
+
+// Get User From Database using Id
+router.post('/', function(req, res) {
+  User.addUser(req.body)
+    .then(resp => {
+      res.status(resp.status).json(resp);
+    })
+    .catch(err => {
+      res.status(err.status).json(err);
+    });
+
+});
 
 module.exports = router;

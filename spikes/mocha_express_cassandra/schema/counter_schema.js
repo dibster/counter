@@ -7,7 +7,7 @@ let query = '';
 const cassandra = require('cassandra-driver'),
       client = new cassandra.Client( { contactPoints : [ DB_IP_ADDRESS ], keyspace : KEYSPACE } );
 
-const tables = ['Topics', 'Users'];
+const tables = ['Topics', 'Users', 'UserPreferences'];
 
 dropAll();
 

@@ -3,8 +3,9 @@ const express = require('express')
 
 router.use('/users', require('./users'));
 
-router.get('/test', function(req, res) {
-  res.send('A Test')
-})
+router.post('/ping', function(req, res) {
+  console.log('ping : ', req.body);
+  res.send('A Test');
+});
 
 module.exports = router;

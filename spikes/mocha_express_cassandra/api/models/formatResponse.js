@@ -2,23 +2,28 @@
 
 'use strict';
 
+const REST_RESPONSE_CODES = {
+  OK : 200,
+  NOT_FOUND : 404,
+  SERVER_ERROR : 500
+}
+
 const response = {}
-response.responseCode = 200;
+response.status = REST_RESPONSE_CODES.OK;
 response.messages = [];
 response.length = 0;
 response.rows = [];
 response.record = {};
 
 function found(result) {
-  console.log('result ', JSON.stringify(result.rowLength));
   // if resul Length = 0 , not found
   let newResponse = response;
-  newResponse.responseCode = 200;
+  newResponse.status = REST_RESPONSE_CODES.OK
   newResponse.messages = [];
   newResponse.length = result.rowLength;
 
-  if (newResponse.length == 0) {
-    newResponse.responseCode = 404;
+  if (newResponse.length === 0) {
+    newResponse.status = REST_RESPONSE_CODES.NOT_FOUND;
     newResponse.messages.push('Not Found');
     newResponse.rows = [];
     newResponse.record = {};
@@ -33,7 +38,7 @@ function found(result) {
 
 function error(err) {
   let errResponse = response;
-  errResponse.responseCode = 400;
+  errResponse.status = REST_RESPONSE_CODES.SERVER_ERROR;
   errResponse.messages.push(err.message);
 
   return errResponse
