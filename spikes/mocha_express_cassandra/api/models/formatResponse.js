@@ -8,20 +8,42 @@ const REST_RESPONSE_CODES = {
   SERVER_ERROR : 500
 }
 
-const response = {}
-response.status = REST_RESPONSE_CODES.OK;
-response.messages = [];
-response.length = 0;
-response.rows = [];
-response.record = {};
+const restResponse = {
+  status : REST_RESPONSE_CODES.OK,
+  messages : [],
+  length : 0,
+  rows : [],
+  record : {}
+}
+
+// to clone the standard message
+function cloneObj(from) {
+  return JSON.parse(JSON.stringify(from));
+}
+
+function insertResponse(resp) {
+  // set Insert status codes to 200
+  let newResponse = cloneObj(restResponse);
+  return newResponse;
+}
+
+function deleteResponse(resp) {
+  console.log('delete resp', resp);
+  let newResponse = cloneObj(restResponse);
+  return newResponse;
+
+}
 
 function found(result) {
-  // if resul Length = 0 , not found
-  let newResponse = response;
+  // if result Length = 0 , not found
+  let newResponse = cloneObj(restResponse);
   newResponse.status = REST_RESPONSE_CODES.OK
   newResponse.messages = [];
-  newResponse.length = result.rowLength;
-
+  if (typeof result.rowLength === 'undefined') {
+    newResponse.length = 0
+  } else {
+    newResponse.length = result.rowLength;
+  }
   if (newResponse.length === 0) {
     newResponse.status = REST_RESPONSE_CODES.NOT_FOUND;
     newResponse.messages.push('Not Found');
@@ -32,17 +54,15 @@ function found(result) {
   } else {
     newResponse.rows = result.rows;
   }
-
   return newResponse;
 }
 
 function error(err) {
-  let errResponse = response;
+  let errResponse = cloneObj(restResponse);
   errResponse.status = REST_RESPONSE_CODES.SERVER_ERROR;
   errResponse.messages.push(err.message);
 
   return errResponse
 }
 
-module.exports={found,
-                error};
+module.exports={found, insertResponse, deleteResponse, error};

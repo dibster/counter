@@ -27,15 +27,12 @@ function getUser(id) {
 function addUser(user) {
   return new Promise (
     function (resolve, reject) {
-      console.log('user', user);
       const query = `
         INSERT INTO Users JSON ?` ;
       dbClient.execute(query,[JSON.stringify(user)], function (err,result) {
         if (!err) {
-           console.log('Ok');
-           resolve(formatResponse.found(result));
+           resolve(formatResponse.insertResponse(result));
         } else {
-          console.log('error', err);
          reject(formatResponse.error(err));
         }
 
@@ -43,6 +40,29 @@ function addUser(user) {
   })
 }
 
+// delete a user
+function deleteUser(id) {
+  console.log(typeof parseInt(id));
+  return new Promise (
+    function (resolve, reject) {
+
+      const query = `
+        DELETE from Users
+        WHERE id = ?
+        `;
+
+        dbClient.execute(query,[parseInt(id)],{ prepare : true },function (err,result) {
+          if (!err) {
+             resolve(formatResponse.deleteResponse(result));
+          } else {
+            reject(formatResponse.error(err));
+          }
+        });
+  })
+}
+
+
 
 module.exports={ getUser,
-                 addUser };
+                 addUser,
+                 deleteUser };

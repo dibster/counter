@@ -28,4 +28,18 @@ router.post('/', function(req, res) {
 
 });
 
+// Delete User From Database using Id
+router.delete('/:id', function(req, res) {
+
+  User.deleteUser(req.params.id)
+    .then(resp => {
+      res.status(resp.status).json(resp);
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(err.status).json(err);
+    });
+
+});
+
 module.exports = router;

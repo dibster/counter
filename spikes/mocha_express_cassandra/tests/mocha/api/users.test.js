@@ -66,9 +66,36 @@ describe("User API Tests" ,function(){
     server
       .get("/users/999")
       .expect("Content-type",/json/)
-      .expect(200) // THis is HTTP response
+      .expect(404) // THis is HTTP response
       .end(function(err,res){
         res.status.should.equal(404);
+        done();
+      });
+  });
+
+
+  it("should delete a user",function(done){
+
+    server
+      .delete("/users/310")
+      .expect("Content-type",/json/)
+      .expect(200) // THis is HTTP response
+      .end(function(err,res){
+        res.status.should.equal(200);
+        done();
+      });
+  });
+
+  it("should not delete a user",function(done){
+
+    server
+      .delete("/users/3090")
+      .expect("Content-type",/json/)
+      .expect(404) // THis is HTTP response
+      .end(function(err,res){
+        console.log(res.body);
+        res.status.should.equal(404);
+        console.log(res.body);
         done();
       });
   });
