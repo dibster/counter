@@ -1,20 +1,22 @@
-const React = require('react-native');
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ */
 
-const {
-  View,
+import React, {
+  AppRegistry,
+  Component,
   StyleSheet,
-  Text
-} = React;
+  Text,
+  View
+} from 'react-native';
 
-
-class Main extends React.Component {
-
+class FirstProject extends Component {
   render() {
-    console.log('In Main');
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to Counter build by dib!
+          Welcome to React Native Dave!
         </Text>
         <Text style={styles.instructions}>
           To get started, edit index.ios.js
@@ -24,7 +26,7 @@ class Main extends React.Component {
           Cmd+D or shake for dev menu
         </Text>
       </View>
-  );
+    );
   }
 }
 
@@ -33,19 +35,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF'
+    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
-    margin: 10
+    margin: 10,
   },
   instructions: {
     textAlign: 'center',
     color: '#333333',
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
-
-module.exports = Main;
+AppRegistry.registerComponent('FirstProject', () => FirstProject);

@@ -10,7 +10,7 @@ const {AppRegistry, Component, Navigator} = React;
 
 //const Main = require('./App/Components/main')
 
-class react_native_local_db extends Component {
+class WeatherSimple extends Component {
   render() {
     console.log('In Render');
     return (
@@ -38,4 +38,4 @@ class react_native_local_db extends Component {
   }
 }
 
-AppRegistry.registerComponent('react_native_local_db', () => react_native_local_db);
+AppRegistry.registerComponent('WeatherSimple', () => WeatherSimple);
