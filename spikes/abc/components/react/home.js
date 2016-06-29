@@ -1,7 +1,7 @@
 import React, {Component, View} from 'react-native';
 
-import Header from './header.js';
-import Footer from './footer.js';
+// import Header from './header.js';
+// import Footer from './footer.js';
 import List from './list.js';
 
 
@@ -27,9 +27,7 @@ class Home extends Component {
         console.log('in render');
         return (
             <View>
-                <Header/>
                 <List/>
-                <Footer/>
             </View>
         );
     }

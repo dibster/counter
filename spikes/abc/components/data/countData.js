@@ -1,4 +1,5 @@
 
+
 exports.getCounts = function () {
 
     const counts = [
@@ -12,11 +13,12 @@ exports.getCounts = function () {
         {
             id : 2,
             value : 4,
-            name : 'Coffes',
+            name : 'Coffees',
             increment : 1,
             units : 'cups'
         }
     ];
+
     return counts;
 
 };

@@ -6,11 +6,16 @@ import styles from '../styles/styles.js';
 
 import CountListItem from './listitem.js';
 
+import NativeStore from '../data/nativestore.js';
+
 class List extends Component {
 
     constructor(props) {
-        console.log('in list constructor');
+        console.log('in list constructor ...');
         super(props);
+        const dave = new NativeStore();
+        dave.loadInitialState();
+        dave.saveData({counter : 'dave'});
 
         this.incrementCount = this.incrementCount.bind(this);
 
