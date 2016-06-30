@@ -4,6 +4,8 @@ import React, {Component, View} from 'react-native';
 // import Footer from './footer.js';
 import List from './list.js';
 
+import TabBarExample from './tabmenu.js';
+
 
 
 class Home extends Component {
@@ -28,7 +30,9 @@ class Home extends Component {
         return (
             <View>
                 <List/>
+                <TabBarExample/>
             </View>
+
         );
     }
 }

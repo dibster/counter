@@ -16,6 +16,27 @@ exports.getCounts = function () {
             name : 'Coffees',
             increment : 1,
             units : 'cups'
+        },
+        {
+            id : 2,
+            value : 4,
+            name : 'Coffees',
+            increment : 1,
+            units : 'cups'
+        },
+        {
+            id : 2,
+            value : 4,
+            name : 'Coffees',
+            increment : 1,
+            units : 'cups'
+        },
+        {
+            id : 2,
+            value : 4,
+            name : 'Coffees',
+            increment : 1,
+            units : 'cups'
         }
     ];
 
