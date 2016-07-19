@@ -15,6 +15,7 @@ class List extends Component {
         super(props);
         currentState.isLoading = true;
         this.state = currentState;
+        console.log('constructor state', this.state);
 
     }
 
@@ -24,23 +25,15 @@ class List extends Component {
 
     async fetchData() {
         let model = new NativeStore();
-        const resp = await model.showTestData();
+        const resp = await model.read();
         let ds = new ListView.DataSource({
             rowHasChanged: (r1, r2) => r1 !== r2
         });
-        currentState.isLoading = false;
         currentState.dataSource =  ds.cloneWithRows(resp);
         currentState.db =  resp;
         currentState.isLoading = false;
-        this.setState({currentState});
+        this.setState(currentState);
         console.log('db is ', this.state);
-        //             this.state.isLoading = false;
-
-        // const URL = 'https://api.github.com/repos/facebook/react-native'
-        // const response = await fetch(URL)
-        // const json = await response.json()
-        // const stars = json.stargazers_count
-        // this.setState({stars})
 
 
     }
@@ -55,7 +48,7 @@ class List extends Component {
         return (
             <View style={styles.sectionDivider}>
                 <Text style={styles.headingText}>
-                Counters
+                Counter
                 </Text>
             </View>
         );
