@@ -1,18 +1,14 @@
 {
-  "name": "spikes",
+  "name": "reduxtraining",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "react-native-material-kit": "^0.3.2",
-    "realm": "^0.14.1"
+    "redux": "^3.6.0"
   }
 }

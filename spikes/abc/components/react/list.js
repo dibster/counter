@@ -5,6 +5,7 @@ import NativeStore from '../data/nativestore.js';
 import styles from '../styles/styles.js';
 
 import CountListItem from './listitem.js';
+import AddCount from './addCount.js';
 
 let currentState = {};
 
@@ -90,6 +91,7 @@ class List extends Component {
 
 
             <View>
+            <AddCount/>
             <ListView
                 dataSource={this.state.dataSource}
                 renderRow={this._renderRow}

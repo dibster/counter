@@ -1,16 +1,23 @@
 const STORAGE_KEY_CURRENT_COUNTS = 'LiveCounts';
 const STORAGE_KEY_HISTORICAL_COUNTS = 'OldCounts';
 
+let currentData = [];
+
 import React, {Component, AsyncStorage} from 'react-native';
 
 class NativeStore {
+
+    constructor(parms) {
+        console.log('constructor parms');
+    }
 
     async read() {
         console.log('loading...');
         try {
             const data = await AsyncStorage.getItem(STORAGE_KEY_CURRENT_COUNTS);
             console.log('value of Async data yielded is ', data);
-            return JSON.parse(data);
+            currentData = JSON.parse(data);
+            return currentData;
         } catch (error) {
             console.error('AsyncStorage error: ' + error.message);
         }
@@ -36,6 +43,20 @@ class NativeStore {
         } catch (error) {
             console.error('Eror saving', error);
         }
+    }
+
+    async add(count) {
+        console.log('Add Count', count);
+        console.log('Data', currentData);
+        console.log('type', typeof currentData);
+        // add record to Current Data
+        // let newCounter = {};
+        // newCounter.id = currentData.length + 1;
+        // newCounter.value = 1;
+        // newCounter.name = count;
+        // newCounter.unit = count;
+        // currentData.push(newCounter);
+        // save(currentData);
     }
 
     async showTestData() {
