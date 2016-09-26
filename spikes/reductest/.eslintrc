@@ -1,6 +1,7 @@
 {
   "env": {
     "browser": true,
+    "es6": true,
     "node": true,
     "mocha": true
   },
@@ -12,6 +13,7 @@
     "import/namespace": 0,
     "import/no-unresolved": 0,
     "import/no-named-as-default": 2,
+    "prefer-rest-params" : 1,
     "comma-dangle": 0,  // not sure why airbnb turned this on. gross!
     "indent": [2, 4, {"SwitchCase": 1}],
     "no-console": 0,
